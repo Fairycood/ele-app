@@ -29,8 +29,8 @@
       <!-- 商品图例列表 -->
       <div v-else>
         <search-index
+          @itemClick="$router.push('/shop')"
           :data="result.restaurants"
-          @itemClick="shopItemClick"
         ></search-index>
         <search-index
           :data="result.words"

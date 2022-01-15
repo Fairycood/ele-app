@@ -1,6 +1,8 @@
 <template>
   <div class="index">
-    <router-view></router-view>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
     <ele-tab-bar></ele-tab-bar>
   </div>
 </template>
