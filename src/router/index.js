@@ -13,6 +13,12 @@ const Shop = () => import('views/shop/Shop.vue')
 const Goods = () => import('views/shop/Goods.vue')
 const Comments = () => import('views/shop/Comments.vue')
 const Seller = () => import('views/shop/Seller.vue')
+const AddAddress = () => import('views/address/AddAddress.vue')
+const MyAddress = () => import('views/address/MyAddress.vue')
+const Settlement = () => import('views/order/Settlement.vue')
+const Remark = () => import('views/order/Remark.vue')
+const Pay = () => import('views/order/Pay.vue')
+
 
 
 Vue.use(VueRouter)
@@ -87,6 +93,32 @@ const routes = [
       },
     ]
   },
+  {
+    path: "/addAddress",
+    name: "addAddress",
+    component: AddAddress
+  },
+  {
+    path: "/myAddress",
+    name: "myAddress",
+    component: MyAddress
+  },
+  {
+    path: "/settlement",
+    name: "settlement",
+    component: Settlement
+  },
+  {
+    path: "/remark",
+    name: "remark",
+    component: Remark
+  },
+  {
+    path: "/pay",
+    name: "pay",
+    component: Pay
+  },
+
 ]
 
 const router = new VueRouter({
@@ -104,12 +136,13 @@ const router = new VueRouter({
 })
 
 
-
+// 路由守卫
 router.beforeEach((to, from, next) => {
   const isLogin = localStorage.ele_login ? true : false;
   if (to.path == '/login') {
     next()
   } else {
+    // 是否在登录状态下
     isLogin ? next() : next('/login')
   }
 })

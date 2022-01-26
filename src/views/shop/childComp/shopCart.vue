@@ -55,7 +55,7 @@
         <span v-if="isEmpty"
           >¥{{ data.rst.float_minimum_order_amount }}元起送</span
         >
-        <span v-else>去结算</span>
+        <span v-else @click="settlement">去结算</span>
       </button>
     </div>
   </div>
@@ -123,6 +123,14 @@ export default {
         });
       });
       this.showCartView = false;
+    },
+    //跳转到订单页面
+    settlement() {
+      this.$store.dispatch("setOrderInfo", {
+        shopInfo: this.data.rst,
+        selectFoods: this.selectFoods,
+      });
+      this.$router.push("/settlement");
     },
   },
   components: { CartControll },

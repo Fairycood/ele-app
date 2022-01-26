@@ -102,7 +102,7 @@ export default {
             sid: "52428d0e0a63b09ddfd7018ee2ffcfb3",
             token: "52a312776706888e89cc22c95e4b8f8b",
             appid: "f24279a0fb1e4381a0fdd56169034418",
-            templateid: "123433",
+            templateid: "451568",
             phone: this.phone,
           },
         }).then((res) => {
@@ -124,10 +124,12 @@ export default {
       })
         .then((res) => {
           // 检验成功 设置登录状态并且跳转到/
-          localStorage.setItem("ele_login", true);
+          console.log(res.data);
+          localStorage.setItem("ele_login", res.data.user._id); //将用户的id存储到本地的ele_login
           this.$router.push("/");
         })
         .catch((err) => {
+          console.log(err);
           this.errors = {
             code: err.response.data.msg,
           };

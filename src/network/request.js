@@ -3,6 +3,7 @@ import Vue from 'vue';
 import MintUI from 'mint-ui';
 import 'mint-ui/lib/style.css';
 import { Indicator } from 'mint-ui';
+import qs from 'qs';
 Vue.use(MintUI);
 
 
@@ -10,12 +11,15 @@ export function request(config) {
   //1.创建axios的实例
   const instance = axios.create({
     baseURL: '/api',
-    timeout: 5000
+    timeout: 5000,
   })
 
-  //2.axios的拦截器
-  //2.1.请求拦截
+  // 2.axios的拦截器
+  // 2.1.请求拦截
   instance.interceptors.request.use(config => {
+    if (config.method == 'post') {
+      config.data = qs.stringify(config.data);
+    }
     // 加载动画
     Indicator.open('在加载啦...')
     return config
@@ -24,7 +28,7 @@ export function request(config) {
     console.log(err);
   })
 
-  //2.2.响应拦截
+  // 2.2.响应拦截
   instance.interceptors.response.use(res => {
     // 关闭加载动画
     Indicator.close()
@@ -34,6 +38,7 @@ export function request(config) {
     console.log(err);
     //关闭加载动画
     Indicator.close()
+    return Promise.reject(err);
   })
 
   //3.发送真正的网络请求
